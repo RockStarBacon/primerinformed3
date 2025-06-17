@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard D3.js Avanzado</title>
+    <title>Dashboard D3.js - 5 Visualizaciones</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <style>
         * {
@@ -13,129 +13,131 @@
         }
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: #f5f7fa;
             min-height: 100vh;
             padding: 20px;
         }
         .dashboard {
             max-width: 1400px;
             margin: 0 auto;
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
-            backdrop-filter: blur(10px);
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         .header {
             text-align: center;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             color: #2c3e50;
         }
         .header h1 {
-            font-size: 2.5em;
-            font-weight: 300;
+            font-size: 2.2em;
+            font-weight: 600;
             margin-bottom: 10px;
-            background: linear-gradient(45deg, #667eea, #764ba2);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
+            color: #2c3e50;
         }
-        .visualization-grid {
+        .visualizations {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
             gap: 30px;
-            margin-bottom: 30px;
         }
         .viz-container {
             background: white;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease;
-        }
-        .viz-container:hover {
-            transform: translateY(-2px);
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            border: 1px solid #eaeaea;
         }
         .viz-title {
-            font-size: 1.3em;
+            font-size: 1.2em;
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
+        }
+        .viz-content {
+            display: flex;
+            justify-content: center;
+            margin-top: 10px;
+        }
+        svg {
+            display: block;
+            margin: 0 auto;
+            background: #f9f9f9;
+            border-radius: 4px;
         }
         .tooltip {
             position: absolute;
             background: rgba(0, 0, 0, 0.8);
             color: white;
-            padding: 10px;
-            border-radius: 8px;
+            padding: 8px 12px;
+            border-radius: 4px;
             font-size: 12px;
             pointer-events: none;
             opacity: 0;
-            transition: opacity 0.3s;
-            z-index: 1000;
+            transition: opacity 0.2s;
+            z-index: 100;
         }
         @media (max-width: 768px) {
-            .visualization-grid {
+            .visualizations {
                 grid-template-columns: 1fr;
             }
             .dashboard {
-                padding: 20px;
+                padding: 15px;
             }
             .header h1 {
-                font-size: 2em;
+                font-size: 1.8em;
             }
-        }
-        svg {
-            display: block;
-            margin: 0 auto;
         }
     </style>
 </head>
 <body>
     <div class="dashboard">
         <div class="header">
-            <h1>📊 Dashboard D3.js Avanzado</h1>
-            <p>Colección de visualizaciones interactivas con D3.js</p>
+            <h1>5 Visualizaciones Interactivas con D3.js</h1>
+            <p>Visualizaciones integradas para GitHub Pages</p>
         </div>
         
-        <div class="visualization-grid">
+        <div class="visualizations">
             <!-- Visualización 1: Coordenadas del Mouse -->
             <div class="viz-container">
                 <div class="viz-title">1. Seguimiento de Coordenadas del Mouse</div>
-                <svg id="coords" width="300" height="300" style="background:lightgrey; border: 1px solid #ccc;"></svg>
+                <div class="viz-content">
+                    <svg id="coords" width="300" height="300"></svg>
+                </div>
             </div>
             
             <!-- Visualización 2: Brush Effect -->
             <div class="viz-container">
                 <div class="viz-title">2. Efecto Brush Interactivo</div>
-                <svg id="brush1" width="300" height="300" style="background:lightgrey"></svg>
-                <svg id="brush2" width="300" height="300" style="background:lightgrey"></svg>
+                <div class="viz-content">
+                    <svg id="brush1" width="300" height="300"></svg>
+                    <svg id="brush2" width="300" height="300"></svg>
+                </div>
             </div>
             
             <!-- Visualización 3: Drag and Drop -->
             <div class="viz-container">
                 <div class="viz-title">3. Drag and Drop de Círculos</div>
-                <svg id="dragdrop" width="600" height="200" style="background:lightgrey; border: 1px solid #ccc;">
-                    <circle cx="100" cy="100" r="20" fill="red"></circle>
-                    <circle cx="300" cy="100" r="20" fill="green"></circle>
-                    <circle cx="500" cy="100" r="20" fill="blue"></circle>
-                </svg>
+                <div class="viz-content">
+                    <svg id="dragdrop" width="600" height="200"></svg>
+                </div>
             </div>
             
             <!-- Visualización 4: Efecto Stagger -->
             <div class="viz-container">
                 <div class="viz-title">4. Animación con Efecto Stagger</div>
-                <svg id="stagger" width="600" height="300" style="background:lightgrey"></svg>
-                <p style="text-align: center; margin-top: 10px; font-family: Arial, sans-serif;">
-                    Haz clic en el gráfico para ver el efecto de animación escalonada!
-                </p>
+                <div class="viz-content">
+                    <svg id="stagger" width="600" height="300"></svg>
+                </div>
             </div>
             
             <!-- Visualización 5: Curvas de Lissajous -->
             <div class="viz-container">
-                <div class="viz-title">5. Curvas de Lissajous</div>
-                <svg id="lissajous" width="300" height="300" style="background:lightgrey"></svg>
+                <div class="viz-title">5. Curvas de Lissajous Animadas</div>
+                <div class="viz-content">
+                    <svg id="lissajous" width="300" height="300"></svg>
+                </div>
             </div>
         </div>
     </div>
@@ -143,17 +145,44 @@
     <div class="tooltip" id="tooltip"></div>
     
     <script>
-        // 1. Función para mostrar coordenadas del mouse
-        function coordsPixels(selector) {
-            var txt = d3.select(selector).append('text')
+        // Datos para el brush effect (puedes reemplazar con tus propios datos)
+        const brushData = [
+            {A: 50, B: 60}, {A: 100, B: 120}, {A: 60, B: 80}, 
+            {A: 150, B: 100}, {A: 200, B: 200}, {A: 180, B: 150},
+            {A: 80, B: 180}, {A: 120, B: 90}, {A: 250, B: 250},
+            {A: 280, B: 100}, {A: 220, B: 200}, {A: 150, B: 250}
+        ].map(d => ({A: d.A/3, B: d.B/3})); // Escalar para que quepan en 300x300
+        
+        // Datos para el efecto stagger
+        const staggerData1 = [2, 1, 3, 5, 7, 8, 9, 9, 9, 8, 7, 5, 3, 1, 2];
+        const staggerData2 = [8, 9, 8, 7, 5, 3, 2, 1, 2, 3, 5, 7, 8, 9, 8];
+        
+        // Tooltip global
+        const tooltip = d3.select('#tooltip');
+        
+        function showTooltip(event, content) {
+            tooltip
+                .style('opacity', 1)
+                .html(content)
+                .style('left', (event.pageX + 10) + 'px')
+                .style('top', (event.pageY - 10) + 'px');
+        }
+        
+        function hideTooltip() {
+            tooltip.style('opacity', 0);
+        }
+        
+        // 1. Visualización de coordenadas del mouse
+        function initCoordsViz() {
+            const txt = d3.select("#coords").append('text')
                 .attr('font-family', 'Arial, sans-serif')
                 .attr('font-size', '12px')
                 .attr('fill', 'black');
                 
-            var svg = d3.select(selector)
+            const svg = d3.select("#coords")
                 .attr('cursor', 'crosshair')
-                .on('mousemove', function() {
-                    var pt = d3.mouse(svg.node());
+                .on('mousemove', function(event) {
+                    const pt = d3.pointer(event, this);
                     txt.attr('x', 18 + pt[0])
                         .attr('y', 6 + pt[1])
                         .text('(' + Math.round(pt[0]) + ', ' + Math.round(pt[1]) + ')');
@@ -163,91 +192,72 @@
                 });
         }
         
-        // 2. Función para el efecto brush
-        function makeBrush() {
-            d3.csv("dense.csv").then(function(data) {
-                var svg1 = d3.select("#brush1"), svg2 = d3.select("#brush2");
+        // 2. Brush Effect
+        function initBrushEffect() {
+            const svg1 = d3.select("#brush1"), svg2 = d3.select("#brush2");
 
-                var sc1 = d3.scaleLinear()
-                    .domain([0, 10, 50])
-                    .range(["lime", "yellow", "red"]);
-                var sc2 = d3.scaleLinear()
-                    .domain([0, 10, 50])
-                    .range(["lime", "yellow", "blue"]);
+            const sc1 = d3.scaleLinear()
+                .domain([0, 10, 50])
+                .range(["lime", "yellow", "red"]);
+            const sc2 = d3.scaleLinear()
+                .domain([0, 10, 50])
+                .range(["lime", "yellow", "blue"]);
 
-                var cs1 = drawCircles(svg1, data, d => +d.A, d => +d.B, sc1);
-                var cs2 = drawCircles(svg2, data, d => +d.A, d => +d.B, sc2);
+            const cs1 = drawCircles(svg1, brushData, d => d.A, d => d.B, sc1);
+            const cs2 = drawCircles(svg2, brushData, d => d.A, d => d.B, sc2);
 
-                svg1.call(installHandlers, data, cs1, cs2, sc1, sc2);
-            }).catch(function(error) {
-                console.error("Error loading dense.csv:", error);
-                // Datos de ejemplo si falla la carga
-                var exampleData = [
-                    {A: 10, B: 20},
-                    {A: 30, B: 40},
-                    {A: 50, B: 60},
-                    {A: 20, B: 50},
-                    {A: 40, B: 30}
-                ];
-                
-                var svg1 = d3.select("#brush1"), svg2 = d3.select("#brush2");
+            svg1.call(installHandlers, brushData, cs1, cs2, sc1, sc2);
+            
+            function drawCircles(svg, data, accX, accY, sc) {
+                const color = sc(Infinity);
+                return svg.selectAll("circle")
+                    .data(data)
+                    .enter()
+                    .append("circle")
+                    .attr("r", 5)
+                    .attr("cx", accX)
+                    .attr("cy", accY)
+                    .attr("fill", color)
+                    .attr("fill-opacity", 0.4);
+            }
 
-                var sc1 = d3.scaleLinear()
-                    .domain([0, 10, 50])
-                    .range(["lime", "yellow", "red"]);
-                var sc2 = d3.scaleLinear()
-                    .domain([0, 10, 50])
-                    .range(["lime", "yellow", "blue"]);
-
-                var cs1 = drawCircles(svg1, exampleData, d => d.A, d => d.B, sc1);
-                var cs2 = drawCircles(svg2, exampleData, d => d.A, d => d.B, sc2);
-
-                svg1.call(installHandlers, exampleData, cs1, cs2, sc1, sc2);
-            });
-        }
-
-        function drawCircles(svg, data, accX, accY, sc) {
-            var color = sc(Infinity);
-            return svg.selectAll("circle")
-                .data(data)
-                .enter()
-                .append("circle")
-                .attr("r", 5)
-                .attr("cx", accX)
-                .attr("cy", accY)
-                .attr("fill", color)
-                .attr("fill-opacity", 0.4);
-        }
-
-        function installHandlers(svg, data, cs1, cs2, sc1, sc2) {
-            svg.attr("cursor", "crosshair")
-                .on("mousemove", function() {
-                    var pt = d3.mouse(svg.node());
-                    cs1.attr("fill", function(d, i) {
-                        var r = Math.hypot(pt[0] - d3.select(this).attr("cx"),
-                                         pt[1] - d3.select(this).attr("cy"));
-                        data[i]["r"] = r;
-                        return sc1(r);
+            function installHandlers(svg, data, cs1, cs2, sc1, sc2) {
+                svg.attr("cursor", "crosshair")
+                    .on("mousemove", function(event) {
+                        const pt = d3.pointer(event, this);
+                        cs1.attr("fill", function(d, i) {
+                            const r = Math.hypot(pt[0] - d3.select(this).attr("cx"),
+                                             pt[1] - d3.select(this).attr("cy"));
+                            data[i].r = r;
+                            return sc1(r);
+                        });
+                        cs2.attr("fill", (d, i) => sc2(data[i].r));
+                    })
+                    .on("mouseleave", function() {
+                        cs1.attr("fill", sc1(Infinity));
+                        cs2.attr("fill", sc2(Infinity));
                     });
-                    cs2.attr("fill", (d, i) => sc2(data[i]["r"]));
-                })
-                .on("mouseleave", function() {
-                    cs1.attr("fill", sc1(Infinity));
-                    cs2.attr("fill", sc2(Infinity));
-                });
+            }
         }
         
-        // 3. Función para drag and drop
-        function makeDragDrop() {
-            var widget = undefined, color = undefined;
+        // 3. Drag and Drop
+        function initDragDrop() {
+            const svg = d3.select("#dragdrop");
+            
+            // Crear círculos
+            svg.append("circle").attr("cx", 100).attr("cy", 100).attr("r", 20).attr("fill", "red");
+            svg.append("circle").attr("cx", 300).attr("cy", 100).attr("r", 20).attr("fill", "green");
+            svg.append("circle").attr("cx", 500).attr("cy", 100).attr("r", 20).attr("fill", "blue");
+            
+            let widget = undefined, color = undefined;
 
-            var drag = d3.drag()
+            const drag = d3.drag()
                 .on("start", function() {
                     color = d3.select(this).attr("fill");
                     widget = d3.select(this).attr("fill", "lime");
                 })
-                .on("drag", function() {
-                    var pt = d3.mouse(d3.select("#dragdrop").node());
+                .on("drag", function(event) {
+                    const pt = d3.pointer(event, this);
                     widget.attr("cx", pt[0]).attr("cy", pt[1]);
                 })
                 .on("end", function() {
@@ -255,23 +265,22 @@
                     widget = undefined;
                 });
 
-            drag(d3.select("#dragdrop").selectAll("circle"));
+            drag(svg.selectAll("circle"));
         }
         
-        // 4. Función para el efecto stagger
-        function makeStagger() {
-            let ds1 = [2, 1, 3, 5, 7, 8, 9, 9, 9, 8, 7, 5, 3, 1, 2];
-            let ds2 = [8, 9, 8, 7, 5, 3, 2, 1, 2, 3, 5, 7, 8, 9, 8];
-            const n = ds1.length;
-            const mx = d3.max(d3.merge([ds1, ds2]));
+        // 4. Efecto Stagger
+        function initStaggerEffect() {
+            let currentData = staggerData1;
+            const n = staggerData1.length;
+            const mx = d3.max([...staggerData1, ...staggerData2]);
             const svg = d3.select("#stagger");
 
-            const scX = d3.scaleLinear().domain([0, n]).range([50, 540]);
+            const scX = d3.scaleLinear().domain([0, n]).range([50, 550]);
             const scY = d3.scaleLinear().domain([0, mx]).range([250, 50]);
 
-            // Create initial bars
+            // Crear barras iniciales
             svg.selectAll("line")
-                .data(ds1)
+                .data(currentData)
                 .enter()
                 .append("line")
                 .attr("stroke", "red")
@@ -281,32 +290,32 @@
                 .attr("x2", (d, i) => scX(i))
                 .attr("y2", d => scY(d));
 
-            // Add click handler for animation
-            svg.on("click", function(event) {
-                [ds1, ds2] = [ds2, ds1];
+            // Manejador de clic para animación
+            svg.on("click", function() {
+                currentData = currentData === staggerData1 ? staggerData2 : staggerData1;
                 svg.selectAll("line")
-                    .data(ds1)
+                    .data(currentData)
                     .transition()
                     .duration(1000)
                     .delay((d, i) => 200 * i)
-                    .attr("y2", d => scY(d));
+                    .attr("y2", d => scY(d))
+                    .attr("stroke", currentData === staggerData1 ? "red" : "blue");
             });
         }
         
-        // 5. Función para las curvas de Lissajous
-        function makeLissajous() {
-            var svg = d3.select("#lissajous");
+        // 5. Curvas de Lissajous
+        function initLissajous() {
+            const svg = d3.select("#lissajous");
+            const a = 1.9, b = 3.2;             // Frecuencias de Lissajous
+            const omega = 2 * Math.PI / 10000;  // 10 segundos por periodo
 
-            var a = 1.9, b = 3.2;             // Lissajous frequencies
-            var omega = 2 * Math.PI / 10000;  // 10 seconds per period
+            let prvX = 150 + 100, prvY = 150;
 
-            var prvX = 150 + 100, prvY = 150;
+            const timer = d3.timer(function(t) {
+                const phi = omega * t;
 
-            var timer = d3.timer(function(t) {
-                var phi = omega * t;
-
-                var crrX = 150 + 100 * Math.cos(a * phi);
-                var crrY = 150 + 100 * Math.sin(b * phi);
+                const crrX = 150 + 100 * Math.cos(a * phi);
+                const crrY = 150 + 100 * Math.sin(b * phi);
 
                 svg.selectAll("line")
                     .each(function() { this.bogus_opacity *= 0.99; })
@@ -323,18 +332,21 @@
                 prvX = crrX;
                 prvY = crrY;
 
-                if (t > 120000) { timer.stop(); } // Stop after 120 seconds
+                if (t > 120000) { timer.stop(); } // Detener después de 120 segundos
             });
         }
         
-        // Inicializar todas las visualizaciones cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', function() {
-            coordsPixels('#coords');
-            makeBrush();
-            makeDragDrop();
-            makeStagger();
-            makeLissajous();
-        });
+        // Inicializar todas las visualizaciones
+        function initAllVisualizations() {
+            initCoordsViz();
+            initBrushEffect();
+            initDragDrop();
+            initStaggerEffect();
+            initLissajous();
+        }
+        
+        // Ejecutar cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', initAllVisualizations);
     </script>
 </body>
 </html>
