@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard D3.js</title>
+    <title>Dashboard D3.js Avanzado</title>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
     <style>
         * {
@@ -40,62 +40,28 @@
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
-        .stats-grid {
+        .visualization-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-        .stat-card {
-            background: linear-gradient(135deg, #667eea, #764ba2);
-            color: white;
-            padding: 25px;
-            border-radius: 15px;
-            text-align: center;
-            transform: translateY(0);
-            transition: all 0.3s ease;
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
-        }
-        .stat-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.15);
-        }
-        .stat-value {
-            font-size: 2.5em;
-            font-weight: bold;
-            margin-bottom: 5px;
-        }
-        .stat-label {
-            font-size: 0.9em;
-            opacity: 0.9;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .charts-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(600px, 1fr));
             gap: 30px;
             margin-bottom: 30px;
         }
-        .chart-container {
+        .viz-container {
             background: white;
             border-radius: 15px;
             padding: 25px;
             box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
             transition: transform 0.3s ease;
         }
-        .chart-container:hover {
+        .viz-container:hover {
             transform: translateY(-2px);
         }
-        .chart-title {
+        .viz-title {
             font-size: 1.3em;
             font-weight: 600;
             color: #2c3e50;
             margin-bottom: 20px;
             text-align: center;
-        }
-        .full-width {
-            grid-column: 1 / -1;
         }
         .tooltip {
             position: absolute;
@@ -109,357 +75,266 @@
             transition: opacity 0.3s;
             z-index: 1000;
         }
-        .axis {
-            font-size: 12px;
-        }
-        .bar {
-            transition: all 0.3s ease;
-        }
-        .bar:hover {
-            opacity: 0.7;
-        }
-        .line {
-            fill: none;
-            stroke-width: 3;
-            stroke: #667eea;
-        }
-        .dot {
-            fill: #667eea;
-            stroke: white;
-            stroke-width: 2;
-        }
-        .arc {
-            transition: all 0.3s ease;
-        }
-        .arc:hover {
-            opacity: 0.8;
-        }
         @media (max-width: 768px) {
-            .charts-grid {
+            .visualization-grid {
                 grid-template-columns: 1fr;
             }
-            
             .dashboard {
                 padding: 20px;
             }
-            
             .header h1 {
                 font-size: 2em;
             }
+        }
+        svg {
+            display: block;
+            margin: 0 auto;
         }
     </style>
 </head>
 <body>
     <div class="dashboard">
         <div class="header">
-            <h1>📊 Dashboard Interactivo</h1>
-            <p>Visualización de datos con D3.js</p>
+            <h1>📊 Dashboard D3.js Avanzado</h1>
+            <p>Colección de visualizaciones interactivas con D3.js</p>
         </div>
-        <div class="stats-grid" id="stats"></div>
-        <div class="charts-grid">
-            <div class="chart-container">
-                <div class="chart-title">📈 Ventas por Mes</div>
-                <div id="barChart"></div>
+        
+        <div class="visualization-grid">
+            <!-- Visualización 1: Coordenadas del Mouse -->
+            <div class="viz-container">
+                <div class="viz-title">1. Seguimiento de Coordenadas del Mouse</div>
+                <svg id="coords" width="300" height="300" style="background:lightgrey; border: 1px solid #ccc;"></svg>
             </div>
-            <div class="chart-container">
-                <div class="chart-title">🥧 Distribución por Categoría</div>
-                <div id="pieChart"></div>
+            
+            <!-- Visualización 2: Brush Effect -->
+            <div class="viz-container">
+                <div class="viz-title">2. Efecto Brush Interactivo</div>
+                <svg id="brush1" width="300" height="300" style="background:lightgrey"></svg>
+                <svg id="brush2" width="300" height="300" style="background:lightgrey"></svg>
             </div>
-            <div class="chart-container full-width">
-                <div class="chart-title">📊 Tendencia de Usuarios</div>
-                <div id="lineChart"></div>
+            
+            <!-- Visualización 3: Drag and Drop -->
+            <div class="viz-container">
+                <div class="viz-title">3. Drag and Drop de Círculos</div>
+                <svg id="dragdrop" width="600" height="200" style="background:lightgrey; border: 1px solid #ccc;">
+                    <circle cx="100" cy="100" r="20" fill="red"></circle>
+                    <circle cx="300" cy="100" r="20" fill="green"></circle>
+                    <circle cx="500" cy="100" r="20" fill="blue"></circle>
+                </svg>
+            </div>
+            
+            <!-- Visualización 4: Efecto Stagger -->
+            <div class="viz-container">
+                <div class="viz-title">4. Animación con Efecto Stagger</div>
+                <svg id="stagger" width="600" height="300" style="background:lightgrey"></svg>
+                <p style="text-align: center; margin-top: 10px; font-family: Arial, sans-serif;">
+                    Haz clic en el gráfico para ver el efecto de animación escalonada!
+                </p>
+            </div>
+            
+            <!-- Visualización 5: Curvas de Lissajous -->
+            <div class="viz-container">
+                <div class="viz-title">5. Curvas de Lissajous</div>
+                <svg id="lissajous" width="300" height="300" style="background:lightgrey"></svg>
             </div>
         </div>
     </div>
+    
     <div class="tooltip" id="tooltip"></div>
+    
     <script>
-        // Datos de ejemplo
-        const salesData = [
-            { month: 'Ene', sales: 45000, users: 1200 },
-            { month: 'Feb', sales: 52000, users: 1350 },
-            { month: 'Mar', sales: 48000, users: 1280 },
-            { month: 'Abr', sales: 61000, users: 1450 },
-            { month: 'May', sales: 55000, users: 1380 },
-            { month: 'Jun', sales: 67000, users: 1520 }
-        ];
-        const categoryData = [
-            { category: 'Electrónicos', value: 35, color: '#667eea' },
-            { category: 'Ropa', value: 25, color: '#764ba2' },
-            { category: 'Hogar', value: 20, color: '#f093fb' },
-            { category: 'Deportes', value: 12, color: '#f5576c' },
-            { category: 'Otros', value: 8, color: '#4facfe' }
-        ];
-        // Configuración general
-        const tooltip = d3.select('#tooltip');
-        // Función para mostrar tooltip
-        function showTooltip(event, content) {
-            tooltip
-                .style('opacity', 1)
-                .html(content)
-                .style('left', (event.pageX + 10) + 'px')
-                .style('top', (event.pageY - 10) + 'px');
+        // 1. Función para mostrar coordenadas del mouse
+        function coordsPixels(selector) {
+            var txt = d3.select(selector).append('text')
+                .attr('font-family', 'Arial, sans-serif')
+                .attr('font-size', '12px')
+                .attr('fill', 'black');
+                
+            var svg = d3.select(selector)
+                .attr('cursor', 'crosshair')
+                .on('mousemove', function() {
+                    var pt = d3.mouse(svg.node());
+                    txt.attr('x', 18 + pt[0])
+                        .attr('y', 6 + pt[1])
+                        .text('(' + Math.round(pt[0]) + ', ' + Math.round(pt[1]) + ')');
+                })
+                .on('mouseleave', function() {
+                    txt.text('');
+                });
         }
-        function hideTooltip() {
-            tooltip.style('opacity', 0);
+        
+        // 2. Función para el efecto brush
+        function makeBrush() {
+            d3.csv("dense.csv").then(function(data) {
+                var svg1 = d3.select("#brush1"), svg2 = d3.select("#brush2");
+
+                var sc1 = d3.scaleLinear()
+                    .domain([0, 10, 50])
+                    .range(["lime", "yellow", "red"]);
+                var sc2 = d3.scaleLinear()
+                    .domain([0, 10, 50])
+                    .range(["lime", "yellow", "blue"]);
+
+                var cs1 = drawCircles(svg1, data, d => +d.A, d => +d.B, sc1);
+                var cs2 = drawCircles(svg2, data, d => +d.A, d => +d.B, sc2);
+
+                svg1.call(installHandlers, data, cs1, cs2, sc1, sc2);
+            }).catch(function(error) {
+                console.error("Error loading dense.csv:", error);
+                // Datos de ejemplo si falla la carga
+                var exampleData = [
+                    {A: 10, B: 20},
+                    {A: 30, B: 40},
+                    {A: 50, B: 60},
+                    {A: 20, B: 50},
+                    {A: 40, B: 30}
+                ];
+                
+                var svg1 = d3.select("#brush1"), svg2 = d3.select("#brush2");
+
+                var sc1 = d3.scaleLinear()
+                    .domain([0, 10, 50])
+                    .range(["lime", "yellow", "red"]);
+                var sc2 = d3.scaleLinear()
+                    .domain([0, 10, 50])
+                    .range(["lime", "yellow", "blue"]);
+
+                var cs1 = drawCircles(svg1, exampleData, d => d.A, d => d.B, sc1);
+                var cs2 = drawCircles(svg2, exampleData, d => d.A, d => d.B, sc2);
+
+                svg1.call(installHandlers, exampleData, cs1, cs2, sc1, sc2);
+            });
         }
-        // Crear tarjetas de estadísticas
-        function createStatsCards() {
-            const stats = [
-                { label: 'Ventas Totales', value: '$328K', icon: '💰' },
-                { label: 'Usuarios Activos', value: '8.2K', icon: '👥' },
-                { label: 'Productos', value: '1,247', icon: '📦' },
-                { label: 'Conversión', value: '3.2%', icon: '📈' }
-            ];
-            const statsContainer = d3.select('#stats');
-            
-            const cards = statsContainer.selectAll('.stat-card')
-                .data(stats)
+
+        function drawCircles(svg, data, accX, accY, sc) {
+            var color = sc(Infinity);
+            return svg.selectAll("circle")
+                .data(data)
                 .enter()
-                .append('div')
-                .attr('class', 'stat-card')
-                .style('opacity', 0)
-                .style('transform', 'translateY(20px)');
-            cards.append('div')
-                .attr('class', 'stat-value')
-                .text(d => d.value);
-            cards.append('div')
-                .attr('class', 'stat-label')
-                .text(d => `${d.icon} ${d.label}`);
-            // Animación de entrada
-            cards.transition()
-                .duration(800)
-                .delay((d, i) => i * 100)
-                .style('opacity', 1)
-                .style('transform', 'translateY(0)');
+                .append("circle")
+                .attr("r", 5)
+                .attr("cx", accX)
+                .attr("cy", accY)
+                .attr("fill", color)
+                .attr("fill-opacity", 0.4);
         }
-        // Gráfico de barras
-        function createBarChart() {
-            const margin = { top: 20, right: 30, bottom: 40, left: 60 };
-            const width = 400 - margin.left - margin.right;
-            const height = 300 - margin.top - margin.bottom;
-            const svg = d3.select('#barChart')
-                .append('svg')
-                .attr('width', width + margin.left + margin.right)
-                .attr('height', height + margin.top + margin.bottom);
-            const g = svg.append('g')
-                .attr('transform', `translate(${margin.left},${margin.top})`);
-            const x = d3.scaleBand()
-                .domain(salesData.map(d => d.month))
-                .range([0, width])
-                .padding(0.2);
-            const y = d3.scaleLinear()
-                .domain([0, d3.max(salesData, d => d.sales)])
-                .range([height, 0]);
-            // Ejes
-            g.append('g')
-                .attr('class', 'axis')
-                .attr('transform', `translate(0,${height})`)
-                .call(d3.axisBottom(x));
-            g.append('g')
-                .attr('class', 'axis')
-                .call(d3.axisLeft(y).tickFormat(d => `$${d/1000}K`));
-            // Barras
-            const bars = g.selectAll('.bar')
-                .data(salesData)
+
+        function installHandlers(svg, data, cs1, cs2, sc1, sc2) {
+            svg.attr("cursor", "crosshair")
+                .on("mousemove", function() {
+                    var pt = d3.mouse(svg.node());
+                    cs1.attr("fill", function(d, i) {
+                        var r = Math.hypot(pt[0] - d3.select(this).attr("cx"),
+                                         pt[1] - d3.select(this).attr("cy"));
+                        data[i]["r"] = r;
+                        return sc1(r);
+                    });
+                    cs2.attr("fill", (d, i) => sc2(data[i]["r"]));
+                })
+                .on("mouseleave", function() {
+                    cs1.attr("fill", sc1(Infinity));
+                    cs2.attr("fill", sc2(Infinity));
+                });
+        }
+        
+        // 3. Función para drag and drop
+        function makeDragDrop() {
+            var widget = undefined, color = undefined;
+
+            var drag = d3.drag()
+                .on("start", function() {
+                    color = d3.select(this).attr("fill");
+                    widget = d3.select(this).attr("fill", "lime");
+                })
+                .on("drag", function() {
+                    var pt = d3.mouse(d3.select("#dragdrop").node());
+                    widget.attr("cx", pt[0]).attr("cy", pt[1]);
+                })
+                .on("end", function() {
+                    widget.attr("fill", color);
+                    widget = undefined;
+                });
+
+            drag(d3.select("#dragdrop").selectAll("circle"));
+        }
+        
+        // 4. Función para el efecto stagger
+        function makeStagger() {
+            let ds1 = [2, 1, 3, 5, 7, 8, 9, 9, 9, 8, 7, 5, 3, 1, 2];
+            let ds2 = [8, 9, 8, 7, 5, 3, 2, 1, 2, 3, 5, 7, 8, 9, 8];
+            const n = ds1.length;
+            const mx = d3.max(d3.merge([ds1, ds2]));
+            const svg = d3.select("#stagger");
+
+            const scX = d3.scaleLinear().domain([0, n]).range([50, 540]);
+            const scY = d3.scaleLinear().domain([0, mx]).range([250, 50]);
+
+            // Create initial bars
+            svg.selectAll("line")
+                .data(ds1)
                 .enter()
-                .append('rect')
-                .attr('class', 'bar')
-                .attr('x', d => x(d.month))
-                .attr('width', x.bandwidth())
-                .attr('y', height)
-                .attr('height', 0)
-                .attr('fill', 'url(#barGradient)');
-            // Gradiente para las barras
-            const defs = svg.append('defs');
-            const gradient = defs.append('linearGradient')
-                .attr('id', 'barGradient')
-                .attr('gradientUnits', 'userSpaceOnUse')
-                .attr('x1', 0).attr('y1', height)
-                .attr('x2', 0).attr('y2', 0);
-            gradient.append('stop')
-                .attr('offset', '0%')
-                .attr('stop-color', '#667eea');
-            gradient.append('stop')
-                .attr('offset', '100%')
-                .attr('stop-color', '#764ba2');
-            // Animación y eventos
-            bars.on('mouseover', function(event, d) {
-                    showTooltip(event, `<strong>${d.month}</strong><br>Ventas: $${d.sales.toLocaleString()}`);
-                })
-                .on('mouseout', hideTooltip)
-                .transition()
-                .duration(800)
-                .delay((d, i) => i * 100)
-                .attr('y', d => y(d.sales))
-                .attr('height', d => height - y(d.sales));
+                .append("line")
+                .attr("stroke", "red")
+                .attr("stroke-width", 20)
+                .attr("x1", (d, i) => scX(i))
+                .attr("y1", scY(0))
+                .attr("x2", (d, i) => scX(i))
+                .attr("y2", d => scY(d));
+
+            // Add click handler for animation
+            svg.on("click", function(event) {
+                [ds1, ds2] = [ds2, ds1];
+                svg.selectAll("line")
+                    .data(ds1)
+                    .transition()
+                    .duration(1000)
+                    .delay((d, i) => 200 * i)
+                    .attr("y2", d => scY(d));
+            });
         }
-        // Gráfico circular (pie chart)
-        function createPieChart() {
-            const width = 350;
-            const height = 300;
-            const radius = Math.min(width, height) / 2 - 20;
-            const svg = d3.select('#pieChart')
-                .append('svg')
-                .attr('width', width)
-                .attr('height', height);
-            const g = svg.append('g')
-                .attr('transform', `translate(${width/2},${height/2})`);
-            const pie = d3.pie()
-                .value(d => d.value)
-                .sort(null);
-            const arc = d3.arc()
-                .innerRadius(radius * 0.4)
-                .outerRadius(radius);
-            const arcHover = d3.arc()
-                .innerRadius(radius * 0.4)
-                .outerRadius(radius * 1.1);
-            const arcs = g.selectAll('.arc')
-                .data(pie(categoryData))
-                .enter()
-                .append('g')
-                .attr('class', 'arc');
-            arcs.append('path')
-                .attr('d', arc)
-                .attr('fill', d => d.data.color)
-                .style('opacity', 0)
-                .on('mouseover', function(event, d) {
-                    d3.select(this)
-                        .transition()
-                        .duration(200)
-                        .attr('d', arcHover);
-                    showTooltip(event, `<strong>${d.data.category}</strong><br>${d.data.value}%`);
-                })
-                .on('mouseout', function() {
-                    d3.select(this)
-                        .transition()
-                        .duration(200)
-                        .attr('d', arc);
-                    hideTooltip();
-                })
-                .transition()
-                .duration(800)
-                .delay((d, i) => i * 100)
-                .style('opacity', 1);
-            // Etiquetas
-            arcs.append('text')
-                .attr('transform', d => `translate(${arc.centroid(d)})`)
-                .attr('text-anchor', 'middle')
-                .style('font-size', '12px')
-                .style('font-weight', 'bold')
-                .style('fill', 'white')
-                .style('opacity', 0)
-                .text(d => d.data.value + '%')
-                .transition()
-                .duration(800)
-                .delay((d, i) => i * 100 + 400)
-                .style('opacity', 1);
+        
+        // 5. Función para las curvas de Lissajous
+        function makeLissajous() {
+            var svg = d3.select("#lissajous");
+
+            var a = 1.9, b = 3.2;             // Lissajous frequencies
+            var omega = 2 * Math.PI / 10000;  // 10 seconds per period
+
+            var prvX = 150 + 100, prvY = 150;
+
+            var timer = d3.timer(function(t) {
+                var phi = omega * t;
+
+                var crrX = 150 + 100 * Math.cos(a * phi);
+                var crrY = 150 + 100 * Math.sin(b * phi);
+
+                svg.selectAll("line")
+                    .each(function() { this.bogus_opacity *= 0.99; })
+                    .attr("stroke-opacity", function() { return this.bogus_opacity; })
+                    .filter(function() { return this.bogus_opacity < 0.05; })
+                    .remove();
+
+                svg.append("line")
+                    .each(function() { this.bogus_opacity = 1.0; })
+                    .attr("x1", prvX).attr("y1", prvY)
+                    .attr("x2", crrX).attr("y2", crrY)
+                    .attr("stroke", "green").attr("stroke-width", 2);
+
+                prvX = crrX;
+                prvY = crrY;
+
+                if (t > 120000) { timer.stop(); } // Stop after 120 seconds
+            });
         }
-        // Gráfico de líneas
-        function createLineChart() {
-            const margin = { top: 20, right: 30, bottom: 40, left: 60 };
-            const width = 800 - margin.left - margin.right;
-            const height = 300 - margin.top - margin.bottom;
-            const svg = d3.select('#lineChart')
-                .append('svg')
-                .attr('width', width + margin.left + margin.right)
-                .attr('height', height + margin.top + margin.bottom);
-            const g = svg.append('g')
-                .attr('transform', `translate(${margin.left},${margin.top})`);
-            const x = d3.scaleBand()
-                .domain(salesData.map(d => d.month))
-                .range([0, width])
-                .padding(0.1);
-            const y = d3.scaleLinear()
-                .domain([0, d3.max(salesData, d => d.users)])
-                .range([height, 0]);
-            const line = d3.line()
-                .x(d => x(d.month) + x.bandwidth() / 2)
-                .y(d => y(d.users))
-                .curve(d3.curveMonotoneX);
-            // Ejes
-            g.append('g')
-                .attr('class', 'axis')
-                .attr('transform', `translate(0,${height})`)
-                .call(d3.axisBottom(x));
-            g.append('g')
-                .attr('class', 'axis')
-                .call(d3.axisLeft(y));
-            // Área bajo la línea
-            const area = d3.area()
-                .x(d => x(d.month) + x.bandwidth() / 2)
-                .y0(height)
-                .y1(d => y(d.users))
-                .curve(d3.curveMonotoneX);
-            g.append('path')
-                .datum(salesData)
-                .attr('fill', 'url(#areaGradient)')
-                .attr('opacity', 0.3)
-                .attr('d', area);
-            // Gradiente para el área
-            const defs = svg.append('defs');
-            const areaGradient = defs.append('linearGradient')
-                .attr('id', 'areaGradient')
-                .attr('gradientUnits', 'userSpaceOnUse')
-                .attr('x1', 0).attr('y1', height)
-                .attr('x2', 0).attr('y2', 0);
-            areaGradient.append('stop')
-                .attr('offset', '0%')
-                .attr('stop-color', '#667eea')
-                .attr('stop-opacity', 0);
-            areaGradient.append('stop')
-                .attr('offset', '100%')
-                .attr('stop-color', '#667eea')
-                .attr('stop-opacity', 0.8);
-            // Línea principal
-            const path = g.append('path')
-                .datum(salesData)
-                .attr('class', 'line')
-                .attr('d', line);
-            // Animación de la línea
-            const totalLength = path.node().getTotalLength();
-            path
-                .attr('stroke-dasharray', totalLength + ' ' + totalLength)
-                .attr('stroke-dashoffset', totalLength)
-                .transition()
-                .duration(2000)
-                .attr('stroke-dashoffset', 0);
-            // Puntos en la línea
-            g.selectAll('.dot')
-                .data(salesData)
-                .enter()
-                .append('circle')
-                .attr('class', 'dot')
-                .attr('cx', d => x(d.month) + x.bandwidth() / 2)
-                .attr('cy', d => y(d.users))
-                .attr('r', 0)
-                .on('mouseover', function(event, d) {
-                    d3.select(this)
-                        .transition()
-                        .duration(100)
-                        .attr('r', 8);
-                    showTooltip(event, `<strong>${d.month}</strong><br>Usuarios: ${d.users.toLocaleString()}`);
-                })
-                .on('mouseout', function() {
-                    d3.select(this)
-                        .transition()
-                        .duration(100)
-                        .attr('r', 5);
-                    hideTooltip();
-                })
-                .transition()
-                .duration(500)
-                .delay((d, i) => i * 100 + 1000)
-                .attr('r', 5);
-        }
-        // Inicializar dashboard
-        function initDashboard() {
-            createStatsCards();
-            createBarChart();
-            createPieChart();
-            createLineChart();
-        }
-        // Ejecutar cuando el DOM esté listo
-        document.addEventListener('DOMContentLoaded', initDashboard);
+        
+        // Inicializar todas las visualizaciones cuando el DOM esté listo
+        document.addEventListener('DOMContentLoaded', function() {
+            coordsPixels('#coords');
+            makeBrush();
+            makeDragDrop();
+            makeStagger();
+            makeLissajous();
+        });
     </script>
 </body>
 </html>
